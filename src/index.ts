@@ -1,6 +1,7 @@
 import axios from 'axios';
+import AlbumRequest from './albumRequest';
 
-async function downloadImage(url:string, filepath:string): Promise<void> {
+async function downloadImage(url:string, filepath:string): Promise<string> {
     const {Storage} = require('@google-cloud/storage');
     const storage = new Storage();
     const response = await axios({
@@ -17,12 +18,13 @@ async function downloadImage(url:string, filepath:string): Promise<void> {
     catch (err:any) {
         throw new Error(`Error Saving file to server. Message: ${err.message}`);
     }
+    return file.publicUrl();
 }
 
-async function albumGettr(): Promise<string> {
+async function albumGettr(request: AlbumRequest): Promise<string> {
     const albumArt = require('album-art');
     try{
-        const albumUrl = await albumArt('Beatles', { album: 'Abbey Road' });
+        const albumUrl = await albumArt(request.artist, { album: request.album});
         return albumUrl;
     }
     catch (err:any) {
@@ -31,7 +33,7 @@ async function albumGettr(): Promise<string> {
     }
 }
 (async () => {
-    const url:string = await albumGettr();
-    await downloadImage(url, 'test12345555.jpg');
+    const url:string = await albumGettr({artist: 'The Beatles', album: 'Abbey Road'});
+    const ourUrl = await downloadImage(url, 'test12345555.jpg');
 })();
 
