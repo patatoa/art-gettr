@@ -1,0 +1,22 @@
+{
+  "name": "art-gettr",
+  "version": "1.0.0",
+  "description": "A function to retrieve and save album art.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^16.9.6",
+    "album-art": "^2.0.2",
+    "axios": "^0.21.4"
+  },
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  }
+}
