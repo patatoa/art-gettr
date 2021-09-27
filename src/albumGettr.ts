@@ -26,6 +26,7 @@ async function saveToDb(request: AlbumRecord): Promise<void> {
 
     const db = new Firestore({
         projectId: process.env.GOOGLE_PROJECT_ID,
+        ignoreUndefinedProperties: true
     });
     const docRef = db.collection('album').doc();
     try {
